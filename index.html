@@ -2,2050 +2,387 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ff6b9d">
-<meta name="description" content="Anime-themed Advanced Age Calculator with live counters and fun facts">
-<title>✨ Anime Age Calculator</title>
-<link rel="stylesheet" href="styles.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Discipline Protocol — Junaid Maroof</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Creepster&family=Special+Elite&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-    /* ========================================
-   ANIME AGE CALCULATOR - STYLES
-   ======================================== */
-
-/* CSS Variables */
-:root {
-  --anime-pink: #ff6b9d;
-  --anime-purple: #c94cf8;
-  --anime-blue: #4ecdc4;
-  --anime-yellow: #ffe66d;
-  --anime-orange: #ff9f43;
-  --dark-bg: #1a0b2e;
-  --darker-bg: #0f0719;
-  --card-bg: rgba(26, 11, 46, 0.85);
-  --text-light: #ffffff;
-  --text-glow: #ffd1dc;
-  --shadow-pink: rgba(255, 107, 157, 0.5);
-  --shadow-purple: rgba(201, 76, 248, 0.5);
-}
-
-/* Reset and Base */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* ========================================
-   ANIMATIONS
-   ======================================== */
-
-@keyframes gradientFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-25px) rotate(5deg); }
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.05); opacity: 0.8; }
-}
-
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes glow {
-  0%, 100% {
-    box-shadow: 0 0 20px var(--shadow-pink),
-                0 0 40px var(--shadow-purple);
-  }
-  50% {
-    box-shadow: 0 0 35px var(--shadow-pink),
-                0 0 60px var(--shadow-purple);
-  }
-}
-
-@keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes scaleIn {
-  from {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes sakuraFall {
-  0% {
-    transform: translateY(-100vh) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh) rotate(360deg);
-    opacity: 0.5;
-  }
-}
-
-@keyframes starTwinkle {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.3); }
-}
-
-@keyframes cloudFloat {
-  0% { transform: translateX(-100vw); }
-  100% { transform: translateX(100vw); }
-}
-
-/* ========================================
-   BODY AND BACKGROUND
-   ======================================== */
-
-body {
-  font-family: 'Segoe UI', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(-45deg, #1a0b2e, #c94cf8, #ff6b9d, #4ecdc4);
-  background-size: 400% 400%;
-  animation: gradientFlow 15s ease infinite;
-  color: var(--text-light);
-  padding: 20px;
-  position: relative;
-  overflow-x: hidden;
-  
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(255, 107, 157, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(201, 76, 248, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(78, 205, 196, 0.2) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ========================================
-   FLOATING ELEMENTS
-   ======================================== */
-
-.floating-elements {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.sakura {
-  position: absolute;
-  font-size: 24px;
-  animation: sakuraFall linear infinite;
-  opacity: 0.7;
-}
-
-.sakura:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; }
-.sakura:nth-child(2) { left: 30%; animation-duration: 15s; animation-delay: 2s; }
-.sakura:nth-child(3) { left: 50%; animation-duration: 10s; animation-delay: 4s; }
-.sakura:nth-child(4) { left: 70%; animation-duration: 13s; animation-delay: 1s; }
-.sakura:nth-child(5) { left: 90%; animation-duration: 14s; animation-delay: 3s; }
-
-.star {
-  position: absolute;
-  font-size: 16px;
-  animation: starTwinkle 3s ease-in-out infinite;
-}
-
-.star:nth-child(6) { top: 10%; left: 15%; animation-delay: 0s; }
-.star:nth-child(7) { top: 30%; right: 20%; animation-delay: 1s; }
-.star:nth-child(8) { bottom: 20%; left: 25%; animation-delay: 2s; }
-
-.cloud {
-  position: absolute;
-  font-size: 48px;
-  opacity: 0.5;
-  animation: cloudFloat 60s linear infinite;
-}
-
-.cloud:nth-child(9) { top: 15%; animation-delay: 0s; }
-.cloud:nth-child(10) { top: 60%; animation-delay: 30s; }
-
-/* ========================================
-   APP CONTAINER
-   ======================================== */
-
-.app {
-  width: 100%;
-  max-width: 1200px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  position: relative;
-  z-index: 2;
-}
-
-/* ========================================
-   ANIME CHARACTER
-   ======================================== */
-
-.anime-character {
-  text-align: center;
-  animation: slideInUp 0.8s ease-out;
-  position: relative;
-}
-
-.chibi-character {
-  font-size: 80px;
-  animation: float 3s ease-in-out infinite;
-  display: inline-block;
-  filter: drop-shadow(0 10px 20px rgba(255, 107, 157, 0.5));
-}
-
-.character-bubble {
-  background: linear-gradient(135deg, var(--anime-pink), var(--anime-purple));
-  padding: 15px 25px;
-  border-radius: 25px;
-  margin-bottom: 15px;
-  display: inline-block;
-  position: relative;
-  box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.character-bubble::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 10px solid var(--anime-purple);
-}
-
-.character-bubble p {
-  font-size: clamp(0.9rem, 3vw, 1.1rem);
-  font-weight: 600;
-  margin: 0;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* ========================================
-   ANIMATED CLOCK
-   ======================================== */
-
-#clock {
-  width: 240px;
-  height: 240px;
-  margin: 0 auto 20px;
-  position: relative;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--darker-bg), var(--dark-bg));
-  border: 6px solid var(--anime-pink);
-  box-shadow: 
-    0 0 60px var(--shadow-pink),
-    inset 0 0 40px rgba(255, 107, 157, 0.2),
-    0 15px 40px rgba(0, 0, 0, 0.5);
-  animation: float 3s ease-in-out infinite, glow 3s ease-in-out infinite;
-}
-
-.clock-glow {
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--anime-pink), var(--anime-purple));
-  opacity: 0.3;
-  filter: blur(15px);
-  animation: rotate 10s linear infinite;
-  z-index: -1;
-}
-
-.clock-center {
-  width: 16px;
-  height: 16px;
-  background: linear-gradient(135deg, var(--anime-pink), var(--anime-purple));
-  border-radius: 50%;
-  position: absolute;
-  top: 45%;
-  left: 46%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  box-shadow: 0 0 20px var(--anime-pink);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.hand {
-  position: absolute;
-  bottom: 50%;
-  left: 50%;
-  transform-origin: bottom center;
-  border-radius: 10px;
-  transition: transform 0.05s cubic-bezier(0.4, 0.0, 0.2, 1);
-}
-
-.hour-hand {
-  width: 8px;
-  height: 60px;
-  background: linear-gradient(to top, var(--anime-pink), var(--anime-yellow));
-  margin-left: -4px;
-  z-index: 3;
-  box-shadow: 0 0 15px var(--anime-pink);
-}
-
-.minute-hand {
-  width: 6px;
-  height: 80px;
-  background: linear-gradient(to top, var(--anime-purple), var(--anime-blue));
-  margin-left: -3px;
-  z-index: 4;
-  box-shadow: 0 0 12px var(--anime-purple);
-}
-
-.second-hand {
-  width: 4px;
-  height: 90px;
-  background: linear-gradient(to top, var(--anime-orange), #ff6b9d);
-  margin-left: -2px;
-  z-index: 5;
-  box-shadow: 0 0 10px var(--anime-orange);
-}
-
-.clock-numbers {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.clock-number {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--text-light);
-  text-shadow: 0 0 10px var(--anime-pink);
-}
-
-.clock-number span {
-  display: inline-block;
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.clock-number:nth-child(1) span { transform: translateX(-50%) rotate(0deg); }
-.clock-number:nth-child(2) span { transform: translateX(-50%) rotate(-30deg); }
-.clock-number:nth-child(3) span { transform: translateX(-50%) rotate(-60deg); }
-.clock-number:nth-child(4) span { transform: translateX(-50%) rotate(-90deg); }
-.clock-number:nth-child(5) span { transform: translateX(-50%) rotate(-120deg); }
-.clock-number:nth-child(6) span { transform: translateX(-50%) rotate(-150deg); }
-.clock-number:nth-child(7) span { transform: translateX(-50%) rotate(-180deg); }
-.clock-number:nth-child(8) span { transform: translateX(-50%) rotate(-210deg); }
-.clock-number:nth-child(9) span { transform: translateX(-50%) rotate(-240deg); }
-.clock-number:nth-child(10) span { transform: translateX(-50%) rotate(-270deg); }
-.clock-number:nth-child(11) span { transform: translateX(-50%) rotate(-300deg); }
-.clock-number:nth-child(12) span { transform: translateX(-50%) rotate(-330deg); }
-
-/* ========================================
-   CARD STYLES
-   ======================================== */
-
-.card {
-  background: var(--card-bg);
-  border: 2px solid transparent;
-  border-radius: 30px;
-  padding: 35px;
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(25px);
-  animation: slideInUp 0.6s ease-out;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.anime-card {
-  border-image: linear-gradient(135deg, var(--anime-pink), var(--anime-purple), var(--anime-blue)) 1;
-}
-
-.card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent,
-    rgba(255, 107, 157, 0.1),
-    transparent
-  );
-  animation: rotate 4s linear infinite;
-  pointer-events: none;
-}
-
-.card:nth-child(2) { animation-delay: 0.2s; }
-.card:nth-child(3) { animation-delay: 0.4s; }
-.card:nth-child(4) { animation-delay: 0.6s; }
-.card:nth-child(5) { animation-delay: 0.8s; }
-.card:nth-child(6) { animation-delay: 1s; }
-
-@media (hover: hover) {
-  .card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 35px 90px rgba(255, 107, 157, 0.5);
-  }
-}
-
-.card-header {
-  text-align: center;
-  margin-bottom: 30px;
-  position: relative;
-}
-
-.card-header h1,
-.card-header h2 {
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
-  background: linear-gradient(135deg, var(--anime-pink), var(--anime-yellow), var(--anime-blue));
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 800;
-  margin-bottom: 10px;
-  animation: shimmer 3s linear infinite;
-  text-shadow: 0 0 30px rgba(255, 107, 157, 0.5);
-}
-
-.subtitle {
-  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-  color: var(--text-glow);
-  font-weight: 500;
-  margin-top: 8px;
-}
-
-/* ========================================
-   FORM STYLES
-   ======================================== */
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-.input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-form label {
-  font-weight: 700;
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
-  color: var(--text-light);
-  text-shadow: 0 2px 8px rgba(255, 107, 157, 0.5);
-}
-
-input[type="date"],
-input[type="time"] {
-  width: 100%;
-  padding: 18px 22px;
-  border-radius: 20px;
-  border: 3px solid var(--anime-pink);
-  background: rgba(26, 11, 46, 0.7);
-  color: var(--text-light);
-  font-size: clamp(1rem, 2.5vw, 1.15rem);
-  font-weight: 600;
-  transition: all 0.3s ease;
-  color-scheme: dark;
-}
-
-input[type="date"]:focus,
-input[type="time"]:focus {
-  border-color: var(--anime-purple);
-  outline: none;
-  box-shadow: 
-    0 0 0 5px rgba(201, 76, 248, 0.3),
-    0 0 30px var(--shadow-purple);
-  transform: translateY(-3px);
-}
-
-.button-group {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  margin-top: 10px;
-}
-
-/* ========================================
-   BUTTON STYLES
-   ======================================== */
-
-button {
-  background: linear-gradient(135deg, var(--anime-pink), var(--anime-purple));
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-weight: 800;
-  padding: 18px 28px;
-  border-radius: 20px;
-  font-size: clamp(1rem, 2.5vw, 1.15rem);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 8px 25px var(--shadow-pink);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-button::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-button:hover::before {
-  width: 400px;
-  height: 400px;
-}
-
-.btn-text {
-  position: relative;
-  z-index: 1;
-}
-
-.btn-icon {
-  position: relative;
-  z-index: 1;
-  font-size: 1.2em;
-}
-
-@media (hover: hover) {
-  button:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 12px 35px var(--shadow-pink);
-  }
-}
-
-button:active {
-  transform: translateY(-2px) scale(1.02);
-}
-
-.btn-secondary {
-  background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
-  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
-}
-
-@media (hover: hover) {
-  .btn-secondary:hover {
-    box-shadow: 0 12px 35px rgba(255, 107, 107, 0.6);
-  }
-}
-
-/* ========================================
-   RESULTS GRID
-   ======================================== */
-
-.result-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 18px;
-  margin-top: 30px;
-}
-
-.live-counter-grid {
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-}
-
-/* ========================================
-   STAT CARDS
-   ======================================== */
-
-.stat {
-  background: linear-gradient(135deg, rgba(255, 107, 157, 0.2), rgba(201, 76, 248, 0.2));
-  border-radius: 20px;
-  padding: 25px 18px;
-  text-align: center;
-  color: var(--text-light);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border: 2px solid rgba(255, 107, 157, 0.3);
-  position: relative;
-  overflow: hidden;
-  animation: scaleIn 0.5s ease-out;
-}
-
-.stat::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: left 0.5s;
-}
-
-.stat:hover::before {
-  left: 100%;
-}
-
-.stat-primary {
-  background: linear-gradient(135deg, rgba(255, 107, 157, 0.3), rgba(255, 230, 109, 0.3));
-  border-color: var(--anime-pink);
-}
-
-.stat-special {
-  background: linear-gradient(135deg, rgba(201, 76, 248, 0.3), rgba(78, 205, 196, 0.3));
-  border-color: var(--anime-purple);
-}
-
-.stat-zodiac {
-  background: linear-gradient(135deg, rgba(255, 159, 67, 0.3), rgba(255, 230, 109, 0.3));
-  border-color: var(--anime-orange);
-}
-
-.stat-live {
-  background: linear-gradient(135deg, rgba(78, 205, 196, 0.3), rgba(201, 76, 248, 0.3));
-  border-color: var(--anime-blue);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.stat-countdown {
-  background: linear-gradient(135deg, rgba(255, 107, 157, 0.4), rgba(255, 159, 67, 0.4));
-  border-color: var(--anime-pink);
-  grid-column: span 2;
-}
-
-@media (hover: hover) {
-  .stat:hover {
-    transform: translateY(-10px) scale(1.08);
-    box-shadow: 0 15px 40px var(--shadow-pink);
-  }
-}
-
-.stat h3 {
-  font-size: clamp(0.8rem, 2vw, 1rem);
-  color: var(--text-glow);
-  margin-bottom: 12px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 700;
-}
-
-.stat .value {
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  font-weight: 900;
-  word-break: break-word;
-  background: linear-gradient(135deg, #fff, var(--anime-yellow));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1.2;
-}
-
-#total-seconds,
-#seconds-alive,
-#heartbeats,
-#breaths,
-#blinks,
-#sleep-hours {
-  background: linear-gradient(135deg, var(--anime-pink), var(--anime-orange)) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-/* ========================================
-   ERROR MESSAGE
-   ======================================== */
-
-.error {
-  margin-top: 15px;
-  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-  color: #ff6b6b;
-  min-height: 1.5em;
-  text-align: center;
-  font-weight: 700;
-  animation: slideInUp 0.3s ease-out, bounce 0.5s ease-in-out;
-  text-shadow: 0 2px 10px rgba(255, 107, 107, 0.5);
-}
-
-/* ========================================
-   MILESTONE BADGES
-   ======================================== */
-
-.milestone-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 25px;
-}
-
-.milestone-badge {
-  display: inline-block;
-  padding: 12px 20px;
-  border-radius: 25px;
-  background: linear-gradient(135deg, var(--anime-purple), var(--anime-pink));
-  border: 2px solid var(--anime-yellow);
-  font-size: clamp(0.85rem, 2vw, 1rem);
-  font-weight: 700;
-  color: white;
-  animation: slideInUp 0.5s ease-out, bounce 0.6s ease-in-out;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 20px var(--shadow-purple);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-@media (hover: hover) {
-  .milestone-badge:hover {
-    transform: scale(1.15) rotate(3deg);
-    box-shadow: 0 8px 30px var(--shadow-pink);
-  }
-}
-
-/* ========================================
-   INFO CARD
-   ======================================== */
-
-.info-card {
-  background: linear-gradient(135deg, rgba(255, 107, 157, 0.15), rgba(201, 76, 248, 0.15));
-  border-radius: 20px;
-  padding: 25px;
-  margin-top: 20px;
-  border: 2px solid rgba(255, 107, 157, 0.3);
-  animation: fadeIn 0.6s ease-out;
-}
-
-.info-card p {
-  margin: 12px 0;
-  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-  color: var(--text-light);
-  line-height: 1.8;
-  animation: slideInUp 0.4s ease-out;
-  animation-fill-mode: both;
-  font-weight: 500;
-}
-
-.placeholder-text {
-  text-align: center;
-  font-size: clamp(1rem, 2.5vw, 1.2rem) !important;
-  color: var(--text-glow) !important;
-  font-weight: 600 !important;
-}
-
-.info-card p:nth-child(1) { animation-delay: 0.1s; }
-.info-card p:nth-child(2) { animation-delay: 0.15s; }
-.info-card p:nth-child(3) { animation-delay: 0.2s; }
-.info-card p:nth-child(4) { animation-delay: 0.25s; }
-.info-card p:nth-child(5) { animation-delay: 0.3s; }
-.info-card p:nth-child(6) { animation-delay: 0.35s; }
-.info-card p:nth-child(7) { animation-delay: 0.4s; }
-.info-card p:nth-child(8) { animation-delay: 0.45s; }
-
-/* ========================================
-   ANIME POWER LEVEL
-   ======================================== */
-
-.anime-power-container {
-  margin-top: 20px;
-}
-
-.power-bar-container {
-  background: rgba(15, 7, 25, 0.6);
-  border-radius: 25px;
-  padding: 15px;
-  border: 2px solid var(--anime-purple);
-  margin-bottom: 20px;
-}
-
-.power-bar {
-  height: 50px;
-  background: linear-gradient(90deg, var(--anime-pink), var(--anime-purple), var(--anime-blue));
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 0 30px var(--shadow-purple);
-  transition: width 2s ease-out;
-}
-
-.power-bar::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
-  animation: shimmer 2s linear infinite;
-}
-
-.power-value {
-  font-size: clamp(1.2rem, 3vw, 1.8rem);
-  font-weight: 900;
-  color: white;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
-
-.power-stats {
-  background: linear-gradient(135deg, rgba(201, 76, 248, 0.15), rgba(78, 205, 196, 0.15));
-  border-radius: 20px;
-  padding: 20px;
-  border: 2px solid rgba(201, 76, 248, 0.3);
-}
-
-.power-stats p {
-  margin: 10px 0;
-  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-  color: var(--text-light);
-  line-height: 1.6;
-  font-weight: 600;
-}
-
-/* ========================================
-   FOOTER
-   ======================================== */
-
-footer {
-  margin-top: 30px;
-  padding: 25px 20px;
-  text-align: center;
-  animation: slideInUp 1s ease-out;
-}
-
-.footer-content {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.footer-quote {
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
-  color: var(--text-glow);
-  font-weight: 600;
-  line-height: 1.6;
-}
-
-.footer-credit {
-  font-size: clamp(0.9rem, 2.5vw, 1rem);
-  color: var(--text-light);
-  font-weight: 500;
-}
-
-.creator-name {
-  background: linear-gradient(135deg, var(--anime-pink), var(--anime-yellow));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 800;
-  font-size: 1.1em;
-}
-
-.footer-version {
-  font-size: clamp(0.75rem, 2vw, 0.9rem);
-  color: var(--anime-blue);
-  font-weight: 500;
-  opacity: 0.8;
-}
-
-/* ========================================
-   CALENDAR PICKER STYLING
-   ======================================== */
-
-input[type="date"]::-webkit-calendar-picker-indicator,
-input[type="time"]::-webkit-calendar-picker-indicator {
-  filter: invert(1) brightness(1.5);
-  cursor: pointer;
-  opacity: 0.8;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator:hover,
-input[type="time"]::-webkit-calendar-picker-indicator:hover {
-  opacity: 1;
-  transform: scale(1.2);
-}
-
-/* ========================================
-   RESPONSIVE DESIGN - TABLET
-   ======================================== */
-
-@media (max-width: 768px) {
-  .app {
-    gap: 25px;
-  }
-
-  .card {
-    padding: 28px;
-  }
-
-  body {
-    padding: 15px;
-  }
-
-  #clock {
-    width: 200px;
-    height: 200px;
-  }
-
-  .hour-hand { height: 50px; }
-  .minute-hand { height: 65px; }
-  .second-hand { height: 75px; }
-
-  .chibi-character {
-    font-size: 65px;
-  }
-
-  .result-grid {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 15px;
-  }
-
-  .stat-countdown {
-    grid-column: span 1;
-  }
-
-  .button-group {
-    gap: 12px;
-  }
-}
-
-/* ========================================
-   RESPONSIVE DESIGN - MOBILE
-   ======================================== */
-
-@media (max-width: 480px) {
-  .app {
-    gap: 20px;
-  }
-
-  .card {
-    padding: 22px;
-    border-radius: 25px;
-  }
-
-  body {
-    padding: 12px;
-  }
-
-  #clock {
-    width: 170px;
-    height: 170px;
-    border-width: 4px;
-  }
-
-  .hour-hand { 
-    height: 42px; 
-    width: 6px;
-    margin-left: -3px;
-  }
-  
-  .minute-hand { 
-    height: 55px; 
-    width: 5px;
-    margin-left: -2.5px;
-  }
-  
-  .second-hand { 
-    height: 65px; 
-    width: 3px;
-    margin-left: -1.5px;
-  }
-
-  .clock-center {
-    width: 12px;
-    height: 12px;
-  }
-
-  .clock-number {
-    font-size: 14px;
-  }
-
-  .chibi-character {
-    font-size: 55px;
-  }
-
-  .character-bubble {
-    padding: 12px 20px;
-  }
-
-  .result-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .live-counter-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .stat {
-    padding: 20px 15px;
-  }
-
-  .stat-countdown {
-    grid-column: span 2;
-  }
-
-  .button-group {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .milestone-badge {
-    padding: 10px 16px;
-    font-size: 0.85rem;
-  }
-
-  .info-card {
-    padding: 20px;
-  }
-
-  .info-card p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-
-  .floating-elements .sakura {
-    font-size: 18px;
-  }
-
-  .floating-elements .star {
-    font-size: 12px;
-  }
-
-  .floating-elements .cloud {
-    font-size: 36px;
-  }
-
-  .power-bar {
-    height: 45px;
-  }
-
-  .card-header {
-    margin-bottom: 25px;
-  }
-
-  form {
-    gap: 18px;
-  }
-}
-
-/* ========================================
-   RESPONSIVE DESIGN - VERY SMALL MOBILE
-   ======================================== */
-
-@media (max-width: 360px) {
-  .card {
-    padding: 18px;
-  }
-
-  #clock {
-    width: 150px;
-    height: 150px;
-  }
-
-  .hour-hand { height: 38px; }
-  .minute-hand { height: 48px; }
-  .second-hand { height: 58px; }
-
-  .result-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .stat {
-    padding: 18px 12px;
-  }
-
-  .info-card p {
-    font-size: 0.9rem;
-  }
-
-  .milestone-badge {
-    padding: 8px 14px;
-  }
-}
-
-/* ========================================
-   PRINT STYLES
-   ======================================== */
-
-@media print {
-  body {
-    background: white;
-    color: black;
-  }
-
-  .floating-elements,
-  #clock,
-  .anime-character,
-  button {
-    display: none;
-  }
-
-  .card {
-    border: 1px solid #ddd;
-    page-break-inside: avoid;
-  }
-}
-
-/* ========================================
-   ACCESSIBILITY IMPROVEMENTS
-   ======================================== */
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* High Contrast Mode */
-@media (prefers-contrast: high) {
-  .card {
-    border: 3px solid white;
-  }
-
-  .stat {
-    border: 2px solid white;
-  }
-
-  input[type="date"],
-  input[type="time"] {
-    border: 3px solid white;
-  }
-}
-
-/* Focus Visible for Keyboard Navigation */
-:focus-visible {
-  outline: 3px solid var(--anime-yellow);
-  outline-offset: 3px;
-}
-
-button:focus-visible {
-  box-shadow: 0 0 0 4px rgba(255, 230, 109, 0.5);
-}
-
-input:focus-visible {
-  box-shadow: 0 0 0 4px rgba(255, 230, 109, 0.3);
-}
+:root{
+  --bg:#08070a; --bg2:#121014; --bg3:#1b171b; --line:#332328;
+  --red:#c8102e; --red-dim:#4a0a14; --blood:#8f0018; --text:#e7e2da; --text-dim:#948d86; --text-faint:#524c48;
+  --font-h:'Creepster',cursive; --font-b:'Inter',sans-serif; --font-type:'Special Elite',monospace;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;}
+html{scroll-padding-top:env(safe-area-inset-top,0px); height:100%;}
+body{margin:0; min-height:100%; background:
+  radial-gradient(ellipse at 50% -10%, #2a0812 0%, transparent 55%),
+  radial-gradient(ellipse at 50% 120%, #000 0%, transparent 60%),
+  var(--bg);
+  color:var(--text); font-family:var(--font-b); line-height:1.5; position:relative;}
+body::before{content:''; position:fixed; inset:0; pointer-events:none; z-index:50;
+  background:repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 3px);
+  mix-blend-mode:overlay;}
+body::after{content:''; position:fixed; inset:0; pointer-events:none; z-index:49;
+  box-shadow:inset 0 0 160px 40px rgba(0,0,0,0.85);}
+.wrap{max-width:640px; margin:0 auto; padding:2rem 1.25rem 5rem; position:relative; z-index:1;}
+@keyframes flicker{0%,19%,21%,23%,80%,100%{opacity:1;} 20%,22%,79%{opacity:.72;}}
+@keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-3px);}40%{transform:translateX(3px);}60%{transform:translateX(-2px);}80%{transform:translateX(2px);}}
+@keyframes drip{0%{height:0;}100%{height:var(--h,14px);}}
+.brand{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:2rem; flex-wrap:wrap; gap:.5rem;}
+.brand-name{font-family:var(--font-type); font-size:12px; letter-spacing:.1em; color:var(--text-dim);}
+.brand-name b{color:var(--red);}
+.score-pill{font-family:var(--font-type); font-size:12px; color:var(--text-dim); border:1px solid var(--line); padding:5px 12px; border-radius:2px; background:var(--bg2);}
+.score-pill b{color:var(--red); font-size:16px;}
+.dripwrap{position:relative; margin-bottom:.4rem;}
+.drip{position:absolute; top:100%; width:7px; background:var(--blood); border-radius:0 0 5px 5px; animation:drip 1.4s ease-out forwards;}
+h1.title{font-family:var(--font-h); font-weight:400; font-size:clamp(40px,9vw,64px); letter-spacing:.02em; margin:0 0 .2rem; line-height:.95; color:var(--red);
+  text-shadow:0 0 18px rgba(200,16,46,.55), 2px 2px 0 #000; animation:flicker 6s infinite;}
+.sub{font-family:var(--font-type); color:var(--text-dim); font-size:14px; margin:0 0 1.8rem; max-width:50ch;}
+.quote{border-left:2px solid var(--red); padding:.7rem 0 .7rem 1rem; margin:0 0 2rem; font-size:14px; font-family:var(--font-type); color:var(--text-dim); min-height:20px;}
+.card{background:var(--bg2); border:1px solid var(--line); border-radius:3px; padding:1.1rem 1.15rem; margin-bottom:1rem; box-shadow:0 0 0 1px rgba(200,16,46,.06);}
+.card-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:.9rem;}
+.card-head h2{font-family:var(--font-h); font-weight:400; font-size:20px; letter-spacing:.02em; margin:0; color:var(--red);}
+.task-row{display:flex; align-items:center; gap:.7rem; padding:.6rem 0; border-top:1px solid var(--line);}
+.task-row:first-of-type{border-top:none;}
+.chk{width:22px; height:22px; border-radius:3px; border:1.5px solid var(--text-faint); background:transparent; flex:none; cursor:pointer; display:flex; align-items:center; justify-content:center; color:#fff; font-size:13px;}
+.chk.done{background:var(--red); border-color:var(--red);}
+.task-meta{flex:1; min-width:0;}
+.task-name{font-size:14.5px; font-weight:500;}
+.task-name.done{color:var(--text-faint); text-decoration:line-through;}
+.task-time{font-size:12px; color:var(--text-dim); margin-top:1px; font-family:var(--font-type);}
+.task-time.late{color:var(--red); animation:flicker 1.2s infinite;}
+.del{background:none; border:none; color:var(--text-faint); cursor:pointer; font-size:16px; padding:4px 6px;}
+.del:hover{color:var(--red);}
+.empty{color:var(--text-faint); font-size:13.5px; padding:.6rem 0; font-family:var(--font-type);}
+.form-row{display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:.6rem;}
+input[type=text],input[type=time],select{
+  background:var(--bg3); border:1px solid var(--line); color:var(--text); border-radius:3px;
+  padding:9px 10px; font-size:14px; font-family:var(--font-b); flex:1; min-width:110px;
+}
+input:focus,select:focus{outline:2px solid var(--red-dim); border-color:var(--red);}
+.days{display:flex; gap:5px; margin-bottom:.7rem;}
+.day-btn{width:32px; height:32px; border-radius:3px; border:1px solid var(--line); background:var(--bg3); color:var(--text-dim); font-size:11.5px; cursor:pointer; font-family:var(--font-type);}
+.day-btn.active{background:var(--red); border-color:var(--red); color:#fff;}
+.btn{font-family:var(--font-h); font-weight:400; letter-spacing:.03em; font-size:17px; border:none; border-radius:3px; padding:10px 16px; cursor:pointer;}
+.btn-primary{background:var(--red); color:#fff; width:100%; box-shadow:0 0 14px rgba(200,16,46,.4);}
+.btn-primary:hover{background:#a80c25;}
+.btn-ghost{background:transparent; border:1px solid var(--line); color:var(--text-dim); font-family:var(--font-b); font-size:13px;}
+.btn-ghost:hover{border-color:var(--red); color:var(--red);}
+.stat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem;}
+.stat{background:var(--bg3); border-radius:3px; padding:.7rem; text-align:center;}
+.stat b{display:block; font-family:var(--font-h); font-size:26px; color:var(--red); text-shadow:0 0 10px rgba(200,16,46,.5);}
+.stat span{font-size:11px; color:var(--text-dim); font-family:var(--font-type);}
+.week{display:flex; gap:5px; margin-top:.9rem;}
+.week-day{flex:1; text-align:center;}
+.week-bar-bg{background:var(--bg3); border-radius:2px; height:46px; display:flex; align-items:flex-end; overflow:hidden;}
+.week-bar{width:100%; background:linear-gradient(180deg,var(--red),var(--blood)); border-radius:2px 2px 0 0; transition:height .3s;}
+.week-day span{font-size:10px; color:var(--text-faint); display:block; margin-top:4px; font-family:var(--font-type);}
+.settings-row{display:flex; justify-content:space-between; align-items:center; padding:.5rem 0; border-top:1px solid var(--line); font-size:13.5px; font-family:var(--font-type);}
+.settings-row:first-child{border-top:none;}
+.toggle{width:40px; height:22px; border-radius:11px; background:var(--bg3); border:1px solid var(--line); position:relative; cursor:pointer; flex:none;}
+.toggle.on{background:var(--red-dim); border-color:var(--red);}
+.toggle::after{content:''; position:absolute; width:16px; height:16px; border-radius:50%; background:var(--text-dim); top:2px; left:2px; transition:left .15s;}
+.toggle.on::after{left:20px; background:#fff;}
+.range-row{display:flex; align-items:center; gap:8px;}
+input[type=range]{accent-color:var(--red); width:90px;}
+#banner{position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:linear-gradient(135deg,var(--blood),#3a0009); color:#fff; font-family:var(--font-h); font-size:18px; font-weight:400; letter-spacing:.02em; padding:10px 14px; border-radius:3px; margin-bottom:1.2rem; display:none; align-items:center; justify-content:space-between; gap:10px; border:1px solid var(--red); box-shadow:0 0 22px rgba(200,16,46,.5);}
+#banner.shake{animation:shake .4s ease-in-out;}
+#banner button{background:rgba(0,0,0,.35); border:none; color:#fff; border-radius:3px; padding:6px 10px; font-size:12px; cursor:pointer; font-family:var(--font-b);}
+.foot{text-align:center; color:var(--text-faint); font-size:11px; margin-top:2.5rem; letter-spacing:.05em; font-family:var(--font-type);}
 </style>
 </head>
 <body>
-<!-- Floating Elements -->
-<div class="floating-elements">
-  <div class="sakura">🌸</div>
-  <div class="sakura">🌸</div>
-  <div class="sakura">🌸</div>
-  <div class="sakura">🌸</div>
-  <div class="sakura">🌸</div>
-  <div class="star">⭐</div>
-  <div class="star">⭐</div>
-  <div class="star">⭐</div>
-  <div class="cloud">☁️</div>
-  <div class="cloud">☁️</div>
+<div class="wrap">
+  <div class="brand">
+    <div class="brand-name">A SYSTEM BY <b>JUNAID MAROOF</b></div>
+    <div class="score-pill">DISCIPLINE <b id="scoreVal">0</b>/100</div>
+  </div>
+  <div class="dripwrap">
+    <h1 class="title">Discipline<br>Protocol.</h1>
+  </div>
+  <p class="sub">I don't remind. I don't forgive. Every task you dodge, I remember — and I will not let you forget it either.</p>
+  <div id="banner"><span id="bannerText"></span><button onclick="dismissBanner()">Dismiss</button></div>
+  <blockquote class="quote" id="quoteBox">Discipline is the only currency that compounds.</blockquote>
+
+  <div class="card">
+    <div class="card-head"><h2>Today</h2><span id="dateLabel" style="font-size:12px;color:var(--text-dim);font-family:'Special Elite',monospace"></span></div>
+    <div id="taskList"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Add a routine</h2></div>
+    <div class="form-row">
+      <input type="text" id="inName" placeholder="Task name, e.g. Cold shower">
+      <input type="time" id="inTime" value="06:00">
+    </div>
+    <div class="form-row">
+      <select id="inCat">
+        <option value="Body">Body</option>
+        <option value="Mind">Mind</option>
+        <option value="Work">Work</option>
+        <option value="Discipline">Discipline</option>
+      </select>
+    </div>
+    <div class="days" id="dayPicker"></div>
+    <button class="btn btn-primary" onclick="addRoutine()">Lock it in</button>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Stats</h2></div>
+    <div class="stat-grid">
+      <div class="stat"><b id="stStreak">0</b><span>day streak</span></div>
+      <div class="stat"><b id="stRate">0%</b><span>7-day rate</span></div>
+      <div class="stat"><b id="stTotal">0</b><span>total done</span></div>
+    </div>
+    <div class="week" id="weekChart"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Enforcement</h2></div>
+    <div class="settings-row">
+      <span>Hunt me down until it's done</span>
+      <div class="toggle" id="tgNotify" onclick="toggleNotify()"></div>
+    </div>
+    <div class="settings-row">
+      <span>Reminder interval</span>
+      <div class="range-row"><input type="range" id="inInterval" min="5" max="60" step="5" value="15" oninput="updateInterval()"><span id="intervalLabel" style="font-size:12.5px;color:var(--text-dim)">15m</span></div>
+    </div>
+    <div class="settings-row">
+      <span>Sound on reminder</span>
+      <div class="toggle" id="tgSound" onclick="toggleSound()"></div>
+    </div>
+    <div class="settings-row">
+      <span>Wipe all data</span>
+      <button class="btn btn-ghost" onclick="resetData()">Reset</button>
+    </div>
+  </div>
+
+  <div class="foot">JUNAID MAROOF — BUILT TO NOT BE IGNORED</div>
 </div>
 
-<main class="app">
-  <!-- Anime Character Container -->
-  <div class="anime-character">
-    <div class="character-bubble">
-      <p id="character-message">こんにちは! Enter your birthday! ✨</p>
-    </div>
-    <div class="chibi-character">🎭</div>
-  </div>
-
-  <!-- Animated Clock -->
-  <div id="clock">
-    <div class="clock-glow"></div>
-    <div class="clock-center"></div>
-    <div class="hand hour-hand" id="hour-hand"></div>
-    <div class="hand minute-hand" id="minute-hand"></div>
-    <div class="hand second-hand" id="second-hand"></div>
-    <div class="clock-numbers">
-      <div class="clock-number" style="transform: rotate(0deg);"><span>XII</span></div>
-      <div class="clock-number" style="transform: rotate(30deg);"><span>I</span></div>
-      <div class="clock-number" style="transform: rotate(60deg);"><span>II</span></div>
-      <div class="clock-number" style="transform: rotate(90deg);"><span>III</span></div>
-      <div class="clock-number" style="transform: rotate(120deg);"><span>IV</span></div>
-      <div class="clock-number" style="transform: rotate(150deg);"><span>V</span></div>
-      <div class="clock-number" style="transform: rotate(180deg);"><span>VI</span></div>
-      <div class="clock-number" style="transform: rotate(210deg);"><span>VII</span></div>
-      <div class="clock-number" style="transform: rotate(240deg);"><span>VIII</span></div>
-      <div class="clock-number" style="transform: rotate(270deg);"><span>IX</span></div>
-      <div class="clock-number" style="transform: rotate(300deg);"><span>X</span></div>
-      <div class="clock-number" style="transform: rotate(330deg);"><span>XI</span></div>
-    </div>
-  </div>
-  
-  <!-- Main Input Card -->
-  <section class="card anime-card">
-    <div class="card-header">
-      <h1>✨ Anime Age Calculator ✨</h1>
-      <p class="subtitle">Discover your life's adventure stats! 🎌</p>
-    </div>
-    
-    <form id="age-form">
-      <div class="input-group">
-        <label for="dob">🎂 Your Birthday</label>
-        <input type="date" id="dob" required>
-      </div>
-      
-      <div class="input-group">
-        <label for="tob">⏰ Birth Time (Optional)</label>
-        <input type="time" id="tob">
-      </div>
-      
-      <div class="button-group">
-        <button type="submit" class="btn-primary">
-          <span class="btn-text">Calculate Age</span>
-          <span class="btn-icon">🚀</span>
-        </button>
-        <button type="button" id="reset" class="btn-secondary">
-          <span class="btn-text">Reset</span>
-          <span class="btn-icon">🔄</span>
-        </button>
-      </div>
-      
-      <div id="error" class="error"></div>
-    </form>
-    
-    <!-- Main Stats Grid -->
-    <div id="results" class="result-grid">
-      <div class="stat stat-primary"><h3>Years</h3><div class="value" id="years">—</div></div>
-      <div class="stat stat-primary"><h3>Months</h3><div class="value" id="months">—</div></div>
-      <div class="stat stat-primary"><h3>Days</h3><div class="value" id="days">—</div></div>
-      <div class="stat stat-primary"><h3>Hours</h3><div class="value" id="hours">—</div></div>
-      <div class="stat"><h3>Total Days</h3><div class="value" id="total-days">—</div></div>
-      <div class="stat"><h3>Total Weeks</h3><div class="value" id="total-weeks">—</div></div>
-      <div class="stat"><h3>Total Months</h3><div class="value" id="total-months">—</div></div>
-      <div class="stat stat-special"><h3>Total Seconds</h3><div class="value" id="total-seconds">—</div></div>
-      <div class="stat"><h3>Next Birthday</h3><div class="value" id="next-birthday">—</div></div>
-      <div class="stat"><h3>Born On</h3><div class="value" id="weekday">—</div></div>
-      <div class="stat stat-zodiac"><h3>Zodiac Sign</h3><div class="value" id="zodiac">—</div></div>
-      <div class="stat stat-zodiac"><h3>Chinese Zodiac</h3><div class="value" id="chinese-zodiac">—</div></div>
-      <div class="stat stat-special"><h3>💓 Heartbeats</h3><div class="value" id="heartbeats">—</div></div>
-      <div class="stat stat-special"><h3>🫁 Breaths</h3><div class="value" id="breaths">—</div></div>
-      <div class="stat stat-special"><h3>👁️ Blinks</h3><div class="value" id="blinks">—</div></div>
-      <div class="stat stat-special"><h3>😴 Sleep Hours</h3><div class="value" id="sleep-hours">—</div></div>
-    </div>
-    
-    <!-- Milestones -->
-    <div id="milestones" class="milestone-container"></div>
-  </section>
-  
-  <!-- Live Counter Card -->
-  <section class="card anime-card">
-    <div class="card-header">
-      <h2>⚡ Real-Time Life Counter ⚡</h2>
-    </div>
-    <div class="result-grid live-counter-grid">
-      <div class="stat stat-live">
-        <h3>Seconds Alive</h3>
-        <div class="value" id="seconds-alive">—</div>
-      </div>
-      <div class="stat stat-live">
-        <h3>Minutes Alive</h3>
-        <div class="value" id="minutes-alive">—</div>
-      </div>
-      <div class="stat stat-live">
-        <h3>Hours Alive</h3>
-        <div class="value" id="hours-alive">—</div>
-      </div>
-      <div class="stat stat-countdown">
-        <h3>Birthday Countdown</h3>
-        <div class="value" id="countdown">—</div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Fun Facts Card -->
-  <section class="card anime-card">
-    <div class="card-header">
-      <h2>🌟 Your Life's Fun Facts 🌟</h2>
-    </div>
-    <div class="info-card" id="fun-facts">
-      <p class="placeholder-text">🎯 Enter your birth date to discover amazing facts about your life journey!</p>
-    </div>
-  </section>
-  
-  <!-- Extra Stats Card -->
-  <section class="card anime-card">
-    <div class="card-header">
-      <h2>✨ More Amazing Stats ✨</h2>
-    </div>
-    <div class="info-card" id="extra-facts">
-      <p class="placeholder-text">💫 Calculate your age to unlock incredible statistics!</p>
-    </div>
-  </section>
-  
-  <!-- Anime Powers Card (New Feature) -->
-  <section class="card anime-card">
-    <div class="card-header">
-      <h2>⚔️ Your Anime Power Level ⚔️</h2>
-    </div>
-    <div class="anime-power-container">
-      <div class="power-bar-container">
-        <div class="power-bar" id="power-bar">
-          <span class="power-value" id="power-value">—</span>
-        </div>
-      </div>
-      <div class="power-stats" id="power-stats">
-        <p class="placeholder-text">🔮 Calculate your age to discover your anime power level!</p>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <p class="footer-quote">⏳ 時は金なり - Time is precious. Make every moment count! ✨</p>
-      <p class="footer-credit">Created with 💜 by <span class="creator-name">JUNAID MAROOF MEMON</span></p>
-      <p class="footer-version">Version 2.0 - Anime Edition 🎌</p>
-    </div>
-  </footer>
-</main>
-
-<script src="script.js"></script>
 <script>
-// ========================================
-// ANIME AGE CALCULATOR - JAVASCRIPT
-// ========================================
-
-// DOM Elements
-const form = document.getElementById('age-form');
-const resetBtn = document.getElementById('reset');
-const dobInput = document.getElementById('dob');
-const tobInput = document.getElementById('tob');
-const errorEl = document.getElementById('error');
-const characterMessage = document.getElementById('character-message');
-
-// Result Elements
-const yearsEl = document.getElementById('years');
-const monthsEl = document.getElementById('months');
-const daysEl = document.getElementById('days');
-const hoursEl = document.getElementById('hours');
-const totalDaysEl = document.getElementById('total-days');
-const totalWeeksEl = document.getElementById('total-weeks');
-const totalMonthsEl = document.getElementById('total-months');
-const totalSecondsEl = document.getElementById('total-seconds');
-const nextBdayEl = document.getElementById('next-birthday');
-const weekdayEl = document.getElementById('weekday');
-const zodiacEl = document.getElementById('zodiac');
-const chineseZodiacEl = document.getElementById('chinese-zodiac');
-const heartbeatsEl = document.getElementById('heartbeats');
-const breathsEl = document.getElementById('breaths');
-const blinksEl = document.getElementById('blinks');
-const sleepHoursEl = document.getElementById('sleep-hours');
-
-// Live Counter Elements
-const secondsAliveEl = document.getElementById('seconds-alive');
-const minutesAliveEl = document.getElementById('minutes-alive');
-const hoursAliveEl = document.getElementById('hours-alive');
-const countdownEl = document.getElementById('countdown');
-
-// Info Elements
-const milestonesEl = document.getElementById('milestones');
-const funFactsEl = document.getElementById('fun-facts');
-const extraFactsEl = document.getElementById('extra-facts');
-const powerBarEl = document.getElementById('power-bar');
-const powerValueEl = document.getElementById('power-value');
-const powerStatsEl = document.getElementById('power-stats');
-
-// Clock Elements
-const hourHand = document.getElementById('hour-hand');
-const minuteHand = document.getElementById('minute-hand');
-const secondHand = document.getElementById('second-hand');
-
-// State Variables
-let birthDate = null;
-let secondsInterval = null;
-let countdownInterval = null;
-
-// Character Messages
-const CHARACTER_MESSAGES = [
-  "すごい! Amazing calculation! ✨",
-  "がんばって! Keep living your best life! 💪",
-  "かわいい! Your stats are cute! 🌸",
-  "やった! Got your results! 🎉",
-  "さいこう! You're the best! ⭐",
-  "おめでとう! Congratulations on living! 🎊"
+const DAYS=['S','M','T','W','T','F','S'];
+const QUOTES=[
+"Discipline is the only currency that compounds.",
+"Motivation fades. I don't.",
+"You don't rise to your goals, you fall to your routine.",
+"Comfort is the enemy keeping score against you.",
+"Every skipped rep is a vote for who you don't want to be.",
+"The standard doesn't lower because you're tired.",
+"Do it especially when no one is watching.",
+"Small actions, repeated without mercy, become identity.",
+"I don't sleep. Neither should your excuses."
 ];
+let data=load();
+let selDays=[1,2,3,4,5];
+let notifTimer=null;
 
-// ========================================
-// UTILITY FUNCTIONS
-// ========================================
-
-function pad2(n) {
-  return String(n).padStart(2, '0');
+function load(){
+  try{return JSON.parse(localStorage.getItem('disciplineData'))||fresh();}catch(e){return fresh();}
 }
+function fresh(){return {routines:[],logs:{},settings:{notify:false,interval:15,sound:true},streak:0,total:0};}
+function save(){try{localStorage.setItem('disciplineData',JSON.stringify(data));}catch(e){}}
+function todayKey(d=new Date()){return d.toISOString().slice(0,10);}
+function dow(d=new Date()){return d.getDay();}
 
-function daysInMonth(year, monthIndex) {
-  return new Date(year, monthIndex + 1, 0).getDate();
-}
-
-function parseInputDate(value) {
-  if (!value) return null;
-  const parts = value.split('-');
-  const y = parseInt(parts[0], 10);
-  const m = parseInt(parts[1], 10);
-  const d = parseInt(parts[2], 10);
-  if (isNaN(y) || isNaN(m) || isNaN(d)) return null;
-  return new Date(y, m - 1, d);
-}
-
-function setMaxForDateInput() {
-  const now = new Date();
-  const max = now.getFullYear() + '-' + pad2(now.getMonth() + 1) + '-' + pad2(now.getDate());
-  dobInput.setAttribute('max', max);
-}
-
-function animateValue(el, start, end, duration = 800) {
-  if (start === end) {
-    el.textContent = end.toLocaleString();
-    return;
-  }
-  const range = end - start;
-  let startTime = null;
-
-  function step(timestamp) {
-    if (!startTime) startTime = timestamp;
-    const progress = Math.min((timestamp - startTime) / duration, 1);
-    const easeProgress = 1 - Math.pow(1 - progress, 4);
-    const value = Math.floor(start + range * easeProgress);
-    el.textContent = value.toLocaleString();
-    if (progress < 1) {
-      requestAnimationFrame(step);
-    }
-  }
-  requestAnimationFrame(step);
-}
-
-function updateCharacterMessage(message) {
-  characterMessage.textContent = message;
-}
-
-function randomCharacterMessage() {
-  const randomMsg = CHARACTER_MESSAGES[Math.floor(Math.random() * CHARACTER_MESSAGES.length)];
-  updateCharacterMessage(randomMsg);
-}
-
-function setPlaceholders() {
-  const elements = [
-    yearsEl, monthsEl, daysEl, hoursEl, totalDaysEl, totalWeeksEl, totalMonthsEl,
-    totalSecondsEl, nextBdayEl, weekdayEl, zodiacEl, chineseZodiacEl, secondsAliveEl,
-    minutesAliveEl, hoursAliveEl, countdownEl, heartbeatsEl, breathsEl, blinksEl, sleepHoursEl
-  ];
-
-  elements.forEach(el => el.textContent = '—');
-
-  milestonesEl.innerHTML = '';
-  funFactsEl.innerHTML = '<p class="placeholder-text">🎯 Enter your birth date to discover amazing facts about your life journey!</p>';
-  extraFactsEl.innerHTML = '<p class="placeholder-text">💫 Calculate your age to unlock incredible statistics!</p>';
-  powerStatsEl.innerHTML = '<p class="placeholder-text">🔮 Calculate your age to discover your anime power level!</p>';
-  powerValueEl.textContent = '—';
-  powerBarEl.style.width = '0%';
-
-  if (secondsInterval) {
-    clearInterval(secondsInterval);
-    secondsInterval = null;
-  }
-  if (countdownInterval) {
-    clearInterval(countdownInterval);
-    countdownInterval = null;
-  }
-
-  updateCharacterMessage('こんにちは! Enter your birthday! ✨');
-}
-
-function isLeapYear(year) {
-  return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-}
-
-// ========================================
-// ZODIAC FUNCTIONS
-// ========================================
-
-function getZodiac(month, day) {
-  const zodiacSigns = [
-    { name: "♒ Aquarius", end: [1, 18] },
-    { name: "♓ Pisces", end: [2, 20] },
-    { name: "♈ Aries", end: [3, 19] },
-    { name: "♉ Taurus", end: [4, 20] },
-    { name: "♊ Gemini", end: [5, 20] },
-    { name: "♋ Cancer", end: [6, 22] },
-    { name: "♌ Leo", end: [7, 22] },
-    { name: "♍ Virgo", end: [8, 22] },
-    { name: "♎ Libra", end: [9, 22] },
-    { name: "♏ Scorpio", end: [10, 21] },
-    { name: "♐ Sagittarius", end: [11, 21] },
-    { name: "♑ Capricorn", end: [0, 19] }
-  ];
-
-  if ((month === 0 && day >= 20) || (month === 1 && day <= 18)) return "♒ Aquarius";
-  if ((month === 1 && day >= 19) || (month === 2 && day <= 20)) return "♓ Pisces";
-  if ((month === 2 && day >= 21) || (month === 3 && day <= 19)) return "♈ Aries";
-  if ((month === 3 && day >= 20) || (month === 4 && day <= 20)) return "♉ Taurus";
-  if ((month === 4 && day >= 21) || (month === 5 && day <= 20)) return "♊ Gemini";
-  if ((month === 5 && day >= 21) || (month === 6 && day <= 22)) return "♋ Cancer";
-  if ((month === 6 && day >= 23) || (month === 7 && day <= 22)) return "♌ Leo";
-  if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return "♍ Virgo";
-  if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return "♎ Libra";
-  if ((month === 9 && day >= 23) || (month === 10 && day <= 21)) return "♏ Scorpio";
-  if ((month === 10 && day >= 22) || (month === 11 && day <= 21)) return "♐ Sagittarius";
-  return "♑ Capricorn";
-}
-
-function getChineseZodiac(year) {
-  const animals = [
-    "🐀 Rat", "🐂 Ox", "🐅 Tiger", "🐇 Rabbit", "🐉 Dragon", "🐍 Snake",
-    "🐎 Horse", "🐐 Goat", "🐒 Monkey", "🐓 Rooster", "🐕 Dog", "🐖 Pig"
-  ];
-  return animals[(year - 4) % 12];
-}
-
-// ========================================
-// AGE CALCULATION
-// ========================================
-
-function calculateAgeParts(birth, now) {
-  let years = now.getFullYear() - birth.getFullYear();
-  let months = now.getMonth() - birth.getMonth();
-  let days = now.getDate() - birth.getDate();
-  let hours = now.getHours() - birth.getHours();
-
-  if (hours < 0) {
-    hours += 24;
-    days--;
-  }
-  if (days < 0) {
-    const prevMonthIndex = (now.getMonth() - 1 + 12) % 12;
-    const prevMonthYear = prevMonthIndex === 11 ? now.getFullYear() - 1 : now.getFullYear();
-    days += daysInMonth(prevMonthYear, prevMonthIndex);
-    months--;
-  }
-  if (months < 0) {
-    years--;
-    months += 12;
-  }
-  return { years, months, days, hours };
-}
-
-// ========================================
-// MILESTONES
-// ========================================
-
-function getMilestones(totalDays, totalSeconds) {
-  const milestones = [];
-  const age = totalDays / 365.25;
-
-  // Day milestones
-  const dayMilestones = [100, 365, 1000, 2000, 3650, 5000, 7300, 10000, 18250, 20000];
-  const dayLabels = ["🎈 100 Days!", "🎂 1 Year!", "🎉 1,000 Days!", "🌟 2,000 Days!", 
-                     "🎊 10 Years!", "🌟 5,000 Days!", "✨ 20 Years!", "🎊 10,000 Days!", 
-                     "🎓 50 Years!", "🌈 20,000 Days!"];
-  
-  dayMilestones.forEach((milestone, index) => {
-    if (totalDays === milestone) milestones.push(dayLabels[index]);
+function renderDayPicker(){
+  const el=document.getElementById('dayPicker'); el.innerHTML='';
+  DAYS.forEach((d,i)=>{
+    const b=document.createElement('button'); b.type='button'; b.className='day-btn'+(selDays.includes(i)?' active':''); b.textContent=d;
+    b.onclick=()=>{ selDays.includes(i)?selDays=selDays.filter(x=>x!==i):selDays.push(i); renderDayPicker(); };
+    el.appendChild(b);
   });
+}
 
-  // Age milestones
-  const ageMilestones = [
-    { age: 13, label: "🎮 Teenager!" },
-    { age: 16, label: "🚗 Sweet 16!" },
-    { age: 18, label: "🎓 Legal Adult!" },
-    { age: 21, label: "🍾 21 Years!" },
-    { age: 25, label: "✨ Quarter Century!" },
-    { age: 30, label: "🎯 30 & Thriving!" },
-    { age: 40, label: "💎 Fabulous 40!" },
-    { age: 50, label: "🎂 Half Century!" },
-    { age: 60, label: "👑 Diamond Jubilee!" },
-    { age: 75, label: "🌟 Platinum!" }
-  ];
+function addRoutine(){
+  const name=document.getElementById('inName').value.trim();
+  const time=document.getElementById('inTime').value;
+  const cat=document.getElementById('inCat').value;
+  if(!name){alert('Name the task first.');return;}
+  if(!selDays.length){alert('Pick at least one day.');return;}
+  data.routines.push({id:Date.now().toString(36),name,time,cat,days:[...selDays]});
+  save(); document.getElementById('inName').value=''; renderAll();
+}
+function deleteRoutine(id){
+  data.routines=data.routines.filter(r=>r.id!==id);
+  save(); renderAll();
+}
+function toggleDone(id){
+  const k=todayKey();
+  data.logs[k]=data.logs[k]||{};
+  data.logs[k][id]=!data.logs[k][id];
+  save(); renderAll();
+}
 
-  ageMilestones.forEach(({ age: targetAge, label }) => {
-    if (Math.abs(age - targetAge) < 0.01) milestones.push(label);
+function renderTasks(){
+  const list=document.getElementById('taskList');
+  const d=dow();
+  const todays=data.routines.filter(r=>r.days.includes(d));
+  const k=todayKey();
+  const now=new Date(); const nowMin=now.getHours()*60+now.getMinutes();
+  list.innerHTML='';
+  if(!todays.length){list.innerHTML='<div class="empty">Nothing scheduled today. Add a routine below.</div>';return;}
+  todays.sort((a,b)=>a.time.localeCompare(b.time));
+  todays.forEach(r=>{
+    const done=!!(data.logs[k]&&data.logs[k][r.id]);
+    const [h,m]=r.time.split(':').map(Number);
+    const late=!done && (h*60+m)<nowMin;
+    const row=document.createElement('div'); row.className='task-row';
+    row.innerHTML=`
+      <button class="chk${done?' done':''}" onclick="toggleDone('${r.id}')">${done?'&#10003;':''}</button>
+      <div class="task-meta">
+        <div class="task-name${done?' done':''}">${escapeHtml(r.name)}</div>
+        <div class="task-time${late?' late':''}">${r.time} &middot; ${r.cat}${late?' &middot; overdue':''}</div>
+      </div>
+      <button class="del" onclick="deleteRoutine('${r.id}')" aria-label="Delete">&times;</button>`;
+    list.appendChild(row);
   });
-
-  // Second milestones
-  const million = 1000000;
-  const billion = 1000000000;
-  if (Math.abs(totalSeconds - million) < 100) milestones.push("⚡ 1 Million Seconds!");
-  if (Math.abs(totalSeconds - billion) < 100) milestones.push("⚡ 1 Billion Seconds!");
-  if (Math.abs(totalSeconds - million * 100) < 1000) milestones.push("🚀 100M Seconds!");
-  if (Math.abs(totalSeconds - million * 500) < 5000) milestones.push("🌠 500M Seconds!");
-
-  return milestones;
 }
+function escapeHtml(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
 
-// ========================================
-// FUN FACTS
-// ========================================
-
-function getFunFacts(totalDays, totalSeconds) {
-  const facts = [];
-
-  // Earth and Space
-  const earthYears = (totalDays / 365.25).toFixed(2);
-  facts.push(`🌍 You've lived ${earthYears} Earth years`);
-
-  const earthRotations = totalDays;
-  facts.push(`🌎 Earth has rotated ${earthRotations.toLocaleString()} times`);
-
-  const moonCycles = Math.floor(totalDays / 29.53);
-  facts.push(`🌙 About ${moonCycles.toLocaleString()} full moon cycles`);
-
-  const sunrises = totalDays;
-  facts.push(`☀️ ${sunrises.toLocaleString()} sunrises witnessed`);
-
-  const earthOrbits = (totalDays / 365.25).toFixed(1);
-  facts.push(`🪐 Earth orbited the sun ${earthOrbits} times`);
-
-  // Body Functions
-  const heartbeats = Math.floor(totalSeconds * 70 / 60);
-  facts.push(`💓 ${heartbeats.toLocaleString()} heartbeats`);
-
-  const breaths = Math.floor(totalSeconds * 16 / 60);
-  facts.push(`🫁 ${breaths.toLocaleString()} breaths taken`);
-
-  const blinks = Math.floor(totalSeconds * 17 / 60);
-  facts.push(`👁️ ${blinks.toLocaleString()} eye blinks`);
-
-  // Daily Activities
-  const meals = totalDays * 3;
-  facts.push(`🍽️ About ${meals.toLocaleString()} meals eaten`);
-
-  const pizzas = Math.floor(totalDays / 7);
-  facts.push(`🍕 ${pizzas.toLocaleString()} pizzas (if weekly)`);
-
-  const waterGlasses = totalDays * 8;
-  facts.push(`💧 ${waterGlasses.toLocaleString()} glasses of water needed`);
-
-  const coffees = Math.floor(totalDays * 1.5);
-  facts.push(`☕ About ${coffees.toLocaleString()} cups of coffee (if daily)`);
-
-  return facts;
-}
-
-function getExtraFacts(totalDays, totalSeconds) {
-  const facts = [];
-
-  // Sleep and Dreams
-  const sleepHours = Math.floor(totalSeconds / 3600 * 0.33);
-  const sleepDays = Math.floor(sleepHours / 24);
-  facts.push(`😴 ${sleepHours.toLocaleString()} hours slept (${sleepDays.toLocaleString()} days)`);
-
-  const dreams = Math.floor(totalDays * 4);
-  facts.push(`💭 ${dreams.toLocaleString()} dreams experienced`);
-
-  // Mental Activity
-  const thoughts = Math.floor(totalSeconds * 50 / 60);
-  facts.push(`🧠 ${thoughts.toLocaleString()} thoughts processed`);
-
-  const decisions = totalDays * 35000;
-  facts.push(`🤔 ${decisions.toLocaleString()} decisions made`);
-
-  const memories = Math.floor(totalDays * 100);
-  facts.push(`📚 ${memories.toLocaleString()} memorable moments`);
-
-  // Social Interactions
-  const smiles = totalDays * 20;
-  facts.push(`😊 ${smiles.toLocaleString()} smiles shared`);
-
-  const laughs = totalDays * 15;
-  facts.push(`😂 ${laughs.toLocaleString()} laughs enjoyed`);
-
-  const words = Math.floor(totalDays * 16000);
-  facts.push(`💬 ${words.toLocaleString()} words spoken`);
-
-  // Physical Activity
-  const steps = Math.floor(totalDays * 7500);
-  facts.push(`🚶 ${steps.toLocaleString()} steps taken`);
-
-  const miles = Math.floor(steps * 0.0004);
-  facts.push(`🏃 ${miles.toLocaleString()} miles walked`);
-
-  // Growth
-  const hairGrowth = Math.floor(totalDays * 0.44);
-  facts.push(`💇 Hair grew ${hairGrowth.toLocaleString()}mm (${(hairGrowth / 25.4).toFixed(1)} inches)`);
-
-  const nailGrowth = Math.floor(totalDays * 0.1);
-  facts.push(`💅 Nails grew ${nailGrowth.toLocaleString()}mm`);
-
-  // Technology
-  const internetHours = Math.floor(totalDays * 6.5);
-  facts.push(`📱 ${internetHours.toLocaleString()} hours online`);
-
-  const screenTime = Math.floor(totalDays * 7);
-  facts.push(`📺 ${screenTime.toLocaleString()} hours screen time`);
-
-  // Learning
-  const booksRead = Math.floor(totalDays / 12);
-  facts.push(`📖 Could have read ${booksRead.toLocaleString()} books`);
-
-  return facts;
-}
-
-// ========================================
-// ANIME POWER LEVEL (NEW FEATURE)
-// ========================================
-
-function calculateAnimePower(totalDays, totalSeconds) {
-  // Power level based on various factors
-  const basePower = totalDays * 10;
-  const timePower = Math.floor(totalSeconds / 1000);
-  const milestoneBonus = Math.floor(totalDays / 365) * 1000;
-  
-  const totalPower = basePower + timePower + milestoneBonus;
-  const powerLevel = Math.min(totalPower, 9999999);
-  
-  return powerLevel;
-}
-
-function getAnimeRank(powerLevel) {
-  if (powerLevel < 10000) return { rank: "🥉 Genin", color: "#4ecdc4" };
-  if (powerLevel < 50000) return { rank: "🥈 Chunin", color: "#ffe66d" };
-  if (powerLevel < 100000) return { rank: "🥇 Jonin", color: "#ff9f43" };
-  if (powerLevel < 500000) return { rank: "⭐ Anbu", color: "#ff6b9d" };
-  if (powerLevel < 1000000) return { rank: "👑 Kage", color: "#c94cf8" };
-  if (powerLevel < 5000000) return { rank: "🔥 Sage", color: "#ff6b9d" };
-  return { rank: "✨ Legendary Hero", color: "#ffe66d" };
-}
-
-function displayAnimePower(powerLevel) {
-  const { rank, color } = getAnimeRank(powerLevel);
-  const percentage = Math.min((powerLevel / 1000000) * 100, 100);
-  
-  powerValueEl.textContent = powerLevel.toLocaleString();
-  powerBarEl.style.width = percentage + '%';
-  powerBarEl.style.background = `linear-gradient(90deg, ${color}, #c94cf8, #4ecdc4)`;
-  
-  const stats = [];
-  stats.push(`⚔️ <strong>Rank:</strong> ${rank}`);
-  stats.push(`💪 <strong>Power Level:</strong> ${powerLevel.toLocaleString()}`);
-  
-  if (powerLevel >= 1000000) {
-    stats.push(`🌟 <strong>Achievement:</strong> Reached over 1 million power!`);
+function computeStats(){
+  const dates=Object.keys(data.logs).sort();
+  let total=0; dates.forEach(dt=>{Object.values(data.logs[dt]).forEach(v=>{if(v)total++;});});
+  let streak=0;
+  for(let i=0;i<365;i++){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    const dw=d.getDay(); const k=todayKey(d);
+    const sched=data.routines.filter(r=>r.days.includes(dw));
+    if(!sched.length){ if(i===0) continue; else break; }
+    const logged=data.logs[k]||{};
+    const allDone=sched.every(r=>logged[r.id]);
+    if(allDone) streak++; else break;
   }
-  
-  stats.push(`🎯 <strong>Next Rank:</strong> Keep living to level up!`);
-  
-  powerStatsEl.innerHTML = stats.map((stat, i) => 
-    `<p style="animation-delay: ${i * 0.1}s">${stat}</p>`
-  ).join('');
+  const last7=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    const dw=d.getDay(); const k=todayKey(d);
+    const sched=data.routines.filter(r=>r.days.includes(dw));
+    const logged=data.logs[k]||{};
+    const doneCount=sched.filter(r=>logged[r.id]).length;
+    last7.push({label:DAYS[dw],rate:sched.length?doneCount/sched.length:0});
+  }
+  const rate=last7.length?Math.round(last7.reduce((a,b)=>a+b.rate,0)/last7.length*100):0;
+  const score=Math.max(0,Math.min(100,Math.round(rate*0.7+streak*3)));
+  return {total,streak,rate,last7,score};
 }
 
-// ========================================
-// DISPLAY FUNCTIONS
-// ========================================
-
-function displayMilestones(milestones) {
-  if (milestones.length > 0) {
-    milestonesEl.innerHTML = milestones.map((m, i) =>
-      `<div class="milestone-badge" style="animation-delay: ${i * 0.1}s">${m}</div>`
-    ).join('');
-  } else {
-    milestonesEl.innerHTML = '';
-  }
+function renderStats(){
+  const s=computeStats();
+  document.getElementById('stStreak').textContent=s.streak;
+  document.getElementById('stRate').textContent=s.rate+'%';
+  document.getElementById('stTotal').textContent=s.total;
+  document.getElementById('scoreVal').textContent=s.score;
+  const wc=document.getElementById('weekChart'); wc.innerHTML='';
+  s.last7.forEach(day=>{
+    const col=document.createElement('div'); col.className='week-day';
+    const h=Math.max(4,Math.round(day.rate*46));
+    col.innerHTML=`<div class="week-bar-bg"><div class="week-bar" style="height:${h}px"></div></div><span>${day.label}</span>`;
+    wc.appendChild(col);
+  });
 }
 
-function displayFunFacts(facts) {
-  funFactsEl.innerHTML = facts.map((fact, i) =>
-    `<p style="animation-delay: ${i * 0.1}s">${fact}</p>`
-  ).join('');
+function renderSettings(){
+  document.getElementById('tgNotify').className='toggle'+(data.settings.notify?' on':'');
+  document.getElementById('tgSound').className='toggle'+(data.settings.sound?' on':'');
+  document.getElementById('inInterval').value=data.settings.interval;
+  document.getElementById('intervalLabel').textContent=data.settings.interval+'m';
 }
 
-function displayExtraFacts(facts) {
-  extraFactsEl.innerHTML = facts.map((fact, i) =>
-    `<p style="animation-delay: ${i * 0.1}s">${fact}</p>`
-  ).join('');
-}
-
-// ========================================
-// MAIN COMPUTATION
-// ========================================
-
-function compute(birth) {
-  const now = new Date();
-  if (!birth || birth > now) {
-    setPlaceholders();
-    return;
-  }
-
-  // Animate basic age parts
-  const ageParts = calculateAgeParts(birth, now);
-  animateValue(yearsEl, 0, ageParts.years);
-  animateValue(monthsEl, 0, ageParts.months);
-  animateValue(daysEl, 0, ageParts.days);
-  animateValue(hoursEl, 0, ageParts.hours);
-
-  // Calculate totals
-  const totalDays = Math.floor((now - birth) / 86400000);
-  animateValue(totalDaysEl, 0, totalDays);
-  animateValue(totalWeeksEl, 0, Math.floor(totalDays / 7));
-
-  const totalMonths = ageParts.years * 12 + ageParts.months;
-  animateValue(totalMonthsEl, 0, totalMonths);
-
-  // Clear previous intervals
-  if (secondsInterval) clearInterval(secondsInterval);
-
-  // Update live counters
-  function updateSeconds() {
-    const currentNow = new Date();
-    const seconds = Math.floor((currentNow - birth) / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(seconds / 3600);
-
-    totalSecondsEl.textContent = seconds.toLocaleString();
-    secondsAliveEl.textContent = seconds.toLocaleString();
-    minutesAliveEl.textContent = minutes.toLocaleString();
-    hoursAliveEl.textContent = hours.toLocaleString();
-
-    const heartbeats = Math.floor(seconds * 70 / 60);
-    heartbeatsEl.textContent = heartbeats.toLocaleString();
-
-    const breaths = Math.floor(seconds * 16 / 60);
-    breathsEl.textContent = breaths.toLocaleString();
-
-    const blinks = Math.floor(seconds * 17 / 60);
-    blinksEl.textContent = blinks.toLocaleString();
-
-    const sleepHours = Math.floor(hours * 0.33);
-    sleepHoursEl.textContent = sleepHours.toLocaleString();
-  }
-
-  updateSeconds();
-  secondsInterval = setInterval(updateSeconds, 1000);
-
-  // Calculate next birthday
-  let next = new Date(now.getFullYear(), birth.getMonth(), birth.getDate());
-  if (birth.getMonth() === 1 && birth.getDate() === 29 && !isLeapYear(next.getFullYear())) {
-    next = new Date(next.getFullYear(), 1, 28);
-  }
-  if (next <= now) {
-    next.setFullYear(next.getFullYear() + 1);
-    if (birth.getMonth() === 1 && birth.getDate() === 29 && !isLeapYear(next.getFullYear())) {
-      next = new Date(next.getFullYear(), 1, 28);
-    }
-  }
-
-  if (countdownInterval) clearInterval(countdownInterval);
-
-  function updateCountdown() {
-    const currentNow = new Date();
-    const diff = next - currentNow;
-    if (diff <= 0) {
-      countdownEl.textContent = "🎉 Happy Birthday!";
-      nextBdayEl.textContent = "🎂 Today!";
+function toggleNotify(){
+  if(!data.settings.notify){
+    if('Notification' in window && Notification.permission!=='granted'){
+      Notification.requestPermission().then(p=>{
+        data.settings.notify = p==='granted';
+        save(); renderSettings(); armTimer();
+      });
       return;
     }
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff % 86400000) / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
-    nextBdayEl.textContent = d === 0 ? "🎂 Today" : d + " day" + (d > 1 ? "s" : "");
-    countdownEl.textContent = d + 'd ' + h + 'h ' + m + 'm ' + s + 's';
   }
-
-  updateCountdown();
-  countdownInterval = setInterval(updateCountdown, 1000);
-
-  // Display zodiac and other info
-  weekdayEl.textContent = birth.toLocaleDateString(undefined, { weekday: 'long' });
-  zodiacEl.textContent = getZodiac(birth.getMonth(), birth.getDate());
-  chineseZodiacEl.textContent = getChineseZodiac(birth.getFullYear());
-
-  // Get and display facts
-  const totalSeconds = Math.floor((now - birth) / 1000);
-  const milestones = getMilestones(totalDays, totalSeconds);
-  displayMilestones(milestones);
-
-  const funFacts = getFunFacts(totalDays, totalSeconds);
-  displayFunFacts(funFacts);
-
-  const extraFacts = getExtraFacts(totalDays, totalSeconds);
-  displayExtraFacts(extraFacts);
-
-  // Display anime power level
-  const powerLevel = calculateAnimePower(totalDays, totalSeconds);
-  displayAnimePower(powerLevel);
-
-  // Update character message
-  randomCharacterMessage();
+  data.settings.notify=!data.settings.notify;
+  save(); renderSettings(); armTimer();
+}
+function toggleSound(){ data.settings.sound=!data.settings.sound; save(); renderSettings(); }
+function updateInterval(){
+  data.settings.interval=Number(document.getElementById('inInterval').value);
+  document.getElementById('intervalLabel').textContent=data.settings.interval+'m';
+  save(); armTimer();
 }
 
-// ========================================
-// EVENT LISTENERS
-// ========================================
-
-form.addEventListener('submit', function(e) {
-  e.preventDefault();
-  e.stopPropagation();
-
-  errorEl.textContent = '';
-
-  if (!dobInput.value) {
-    errorEl.textContent = '⚠️ Please select a date of birth.';
-    setPlaceholders();
-    return;
+function pendingOverdue(){
+  const d=dow(); const k=todayKey(); const now=new Date(); const nowMin=now.getHours()*60+now.getMinutes();
+  return data.routines.filter(r=>r.days.includes(d)).filter(r=>{
+    const [h,m]=r.time.split(':').map(Number);
+    const done=!!(data.logs[k]&&data.logs[k][r.id]);
+    return !done && (h*60+m)<nowMin;
+  });
+}
+let escalation=0;
+function checkAndNotify(){
+  const overdue=pendingOverdue();
+  if(!overdue.length){escalation=0;document.title='Discipline Protocol';return;}
+  escalation++;
+  const tiers=[
+    n=>`${n} task${n>1?'s':''} waiting. Move.`,
+    n=>`Still not done. ${n} left. I'm watching.`,
+    n=>`Tick tock. I don't like being ignored. ${n} pending.`,
+    n=>`You promised. I remember everything. Don't test me.`,
+    n=>`This is the last polite version of this message.`
+  ];
+  const msg=tiers[Math.min(escalation-1,tiers.length-1)](overdue.length);
+  document.title=`(${overdue.length}) DO IT NOW`;
+  showBanner(msg);
+  if('Notification' in window && Notification.permission==='granted'){
+    try{new Notification('Discipline Protocol',{body:msg});}catch(e){}
   }
-
-  let birth = parseInputDate(dobInput.value);
-  const now = new Date();
-
-  if (!birth) {
-    errorEl.textContent = '⚠️ Please select a valid date.';
-    setPlaceholders();
-    return;
+  if(data.settings.sound) beep();
+}
+function showBanner(msg){
+  const b=document.getElementById('banner'); document.getElementById('bannerText').textContent=msg;
+  b.style.display='flex'; b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
+}
+function dismissBanner(){document.getElementById('banner').style.display='none';}
+function beep(){
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    const o=ctx.createOscillator(); const g=ctx.createGain();
+    o.type='square'; o.frequency.value=440; g.gain.value=0.05;
+    o.connect(g); g.connect(ctx.destination); o.start();
+    o.frequency.exponentialRampToValueAtTime(220, ctx.currentTime+0.18);
+    o.stop(ctx.currentTime+0.2);
+  }catch(e){}
+}
+function armTimer(){
+  if(notifTimer) clearInterval(notifTimer);
+  if(data.settings.notify){
+    notifTimer=setInterval(checkAndNotify, data.settings.interval*60*1000);
+    checkAndNotify();
   }
-  if (birth > now) {
-    errorEl.textContent = '⚠️ Date of birth cannot be in the future.';
-    setPlaceholders();
-    return;
-  }
-
-  // Add time of birth if provided
-  if (tobInput.value) {
-    const timeParts = tobInput.value.split(':');
-    const hours = parseInt(timeParts[0], 10);
-    const minutes = parseInt(timeParts[1], 10);
-    if (!isNaN(hours) && !isNaN(minutes)) {
-      birth.setHours(hours, minutes, 0, 0);
-    }
-  } else {
-    birth.setHours(0, 0, 0, 0);
-  }
-
-  birthDate = birth;
-  compute(birthDate);
-});
-
-resetBtn.addEventListener('click', function() {
-  dobInput.value = '';
-  tobInput.value = '';
-  errorEl.textContent = '';
-  setPlaceholders();
-  birthDate = null;
-});
-
-// ========================================
-// CLOCK FUNCTIONS
-// ========================================
-
-function updateClock() {
-  const now = new Date();
-  const hours = now.getHours() % 12;
-  const minutes = now.getMinutes();
-  const seconds = now.getSeconds();
-  const milliseconds = now.getMilliseconds();
-
-  const secondDeg = (seconds + milliseconds / 1000) * 6;
-  const minuteDeg = (minutes + seconds / 60) * 6;
-  const hourDeg = (hours + minutes / 60) * 30;
-
-  secondHand.style.transform = 'rotate(' + secondDeg + 'deg)';
-  minuteHand.style.transform = 'rotate(' + minuteDeg + 'deg)';
-  hourHand.style.transform = 'rotate(' + hourDeg + 'deg)';
 }
 
-// ========================================
-// INITIALIZATION
-// ========================================
-
-function init() {
-  setPlaceholders();
-  setMaxForDateInput();
-  updateClock();
-  setInterval(updateClock, 50);
+function resetData(){
+  if(confirm('This wipes every routine and log. Continue?')){
+    data=fresh(); save(); renderAll();
+  }
 }
 
-// Start the application
-init();
+function rotateQuote(){
+  document.getElementById('quoteBox').textContent=QUOTES[Math.floor(Math.random()*QUOTES.length)];
+}
 
-// Character message rotation (every 10 seconds when no calculation)
-setInterval(() => {
-  if (!birthDate) {
-    updateCharacterMessage('こんにちは! Enter your birthday! ✨');
-  }
-}, 10000);
+function renderAll(){
+  renderTasks(); renderStats(); renderSettings();
+  document.getElementById('dateLabel').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',month:'short',day:'numeric'});
+}
+
+renderDayPicker();
+renderAll();
+rotateQuote();
+setInterval(rotateQuote, 15000);
+armTimer();
+setInterval(renderTasks, 60000);
 </script>
 </body>
 </html>
